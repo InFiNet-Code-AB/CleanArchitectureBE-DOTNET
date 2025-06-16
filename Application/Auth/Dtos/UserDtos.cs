@@ -2,21 +2,22 @@
 {
     public class RegisterUserDto
     {
-        public string Username { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
     }
 
     public class LoginUserDto
     {
-        public string Username { get; set; } = string.Empty;
+        public string Name {get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
     }
 
     public class UserDtoResponse
     {
-        public Guid Id { get; set; }
-        public string Username { get; set; } = string.Empty;
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public List<string> Roles { get; set; } = new();
     }
@@ -25,11 +26,5 @@
     {
         public string Token { get; set; } = string.Empty;
         public UserDtoResponse? User { get; set; }
-        public string RefreshToken { get; set; } = string.Empty;
-    }
-
-    public class RefreshTokenRequest
-    {
-        public string RefreshToken { get; set; } = string.Empty;
     }
 }

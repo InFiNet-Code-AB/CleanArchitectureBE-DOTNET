@@ -1,9 +1,0 @@
-﻿using Application.BankAccounts.Dtos;
-using Domain.Models.Common;
-using MediatR;
-
-namespace Application.BankAccounts.Commands.CreateBankAccount
-{
-    public record CreateBankAccountCommand(CreateBankAccountDto Dto)
-    : IRequest<OperationResult<BankAccountDtoResponse>>;
-}

@@ -1,14 +1,10 @@
-﻿using Application.BankAccounts.Interfaces;
-using Application.Common.Interfaces;
+﻿using Application.Auth;
+using Application.Interfaces;
+using Application.Users;
 using Infrastructure.Configuration;
 using Infrastructure.Database;
-using Infrastructure.Database.Seeding;
-using Infrastructure.Interceptors;
 using Infrastructure.Repositories;
-using Infrastructure.Repositories.BankAccounts;
-using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,17 +18,11 @@ namespace Infrastructure
                 configuration.GetSection("JwtSettings")
             );
 
-            services.AddScoped<IAuthService, AuthService>();
-
-            services.AddSingleton<SaveChangesInterceptor, LogSaveChangesInterceptor>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
 
             services.AddDbContext<AppDbContext>((serviceProvider, options) =>
             {
-                var interceptor = serviceProvider.GetRequiredService<SaveChangesInterceptor>();
-
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-
-                options.AddInterceptors(interceptor);
             });
 
 
@@ -40,18 +30,10 @@ namespace Infrastructure
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             // Register feature-specific repositories
-            services.AddScoped<IBankAccountRepository, BankAccountRepository>();
-
-            // Seeding
-            using var provider = services.BuildServiceProvider();
-            using var scope = provider.CreateScope();
-
-            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            DataSeeder.SeedAsync(db).GetAwaiter().GetResult(); // ✅ sync-safe
+            services.AddScoped<IUserRepository, UserRepository>();
 
 
             services.AddHttpContextAccessor();
-            services.AddScoped<IUserContextService, UserContextService>();
 
             return services;
         }

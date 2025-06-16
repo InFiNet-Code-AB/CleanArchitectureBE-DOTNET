@@ -19,4 +19,26 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Auth\Commands\" />
+    <Folder Include="Auth\Queries\" />
+    <Folder Include="Mappings\" />
+    <Folder Include="ExpenseShares\Dtos\" />
+    <Folder Include="ExpenseShares\Commands\" />
+    <Folder Include="ExpenseShares\Queries\" />
+    <Folder Include="Expenses\Dtos\" />
+    <Folder Include="Expenses\Commands\" />
+    <Folder Include="Expenses\Queries\" />
+    <Folder Include="Groups\Dtos\" />
+    <Folder Include="Groups\Commands\" />
+    <Folder Include="Groups\Queries\" />
+    <Folder Include="Users\Dtos\" />
+    <Folder Include="Users\Commands\" />
+    <Folder Include="Users\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Users\IUserRepository.cs" />
+  </ItemGroup>
+
 </Project>
